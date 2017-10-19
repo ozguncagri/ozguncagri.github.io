@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Etiketler on ozzyBlog</title>
+    <link>/tags/</link>
+    <description>Recent content in Etiketler on ozzyBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>tr</language>
+    <copyright>Bu blogdaki herşey MIT lisansı ile lisanslanmıştır!</copyright>
+    <lastBuildDate>Mon, 05 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>/tags/about/</link>
+      <pubDate>Mon, 05 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Apache</title>
+      <link>/tags/apache/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/apache/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Blogging</title>
+      <link>/tags/blogging/</link>
+      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/blogging/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud</title>
+      <link>/tags/cloud/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cluster</title>
+      <link>/tags/cluster/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Containers</title>
+      <link>/tags/containers/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Development</title>
+      <link>/tags/development/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Devenv</title>
+      <link>/tags/devenv/</link>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/devenv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>/tags/docker/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Images</title>
+      <link>/tags/images/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/images/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Injection</title>
+      <link>/tags/injection/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/injection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lamp</title>
+      <link>/tags/lamp/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/lamp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mamp</title>
+      <link>/tags/mamp/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/mamp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Memcached</title>
+      <link>/tags/memcached/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/memcached/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mongodb</title>
+      <link>/tags/mongodb/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Mysql</title>
+      <link>/tags/mysql/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nginx</title>
+      <link>/tags/nginx/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/nginx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Node</title>
+      <link>/tags/node/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/node/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Pentest</title>
+      <link>/tags/pentest/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/pentest/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Php</title>
+      <link>/tags/php/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Postgresql</title>
+      <link>/tags/postgresql/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/postgresql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Production</title>
+      <link>/tags/production/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/production/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Redis</title>
+      <link>/tags/redis/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sql</title>
+      <link>/tags/sql/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sqlmap</title>
+      <link>/tags/sqlmap/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sqlmap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Toolbox</title>
+      <link>/tags/toolbox/</link>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/toolbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vagrant</title>
+      <link>/tags/vagrant/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/vagrant/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Virtualbox</title>
+      <link>/tags/virtualbox/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/virtualbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Virtualization</title>
+      <link>/tags/virtualization/</link>
+      <pubDate>Sun, 03 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/virtualization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Vulnerabilities</title>
+      <link>/tags/vulnerabilities/</link>
+      <pubDate>Sun, 26 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/vulnerabilities/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Wamp</title>
+      <link>/tags/wamp/</link>
+      <pubDate>Sat, 22 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/wamp/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

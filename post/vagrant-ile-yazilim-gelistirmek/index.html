@@ -1,0 +1,249 @@
+    <!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="ozzyBlog">
+		<meta name="description" content="#coder #techlover">
+		<meta name="generator" content="Hugo 0.29" />
+		<title>Vagrant ile yazılım geliştirmek &middot; ozzyBlog</title>
+		<link rel="shortcut icon" href="/images/favicon.ico">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="/css/font-awesome.min.css">
+		
+
+		
+		<link href="/index.xml" rel="alternate" type="application/rss+xml" title="ozzyBlog" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/'> <span class="arrow">←&nbsp;</span>Ana Sayfa</a>
+	
+	<a href='/post'>Arşiv</a>
+	<a href='/tags'>Etiketler</a>
+	<a href='/about'>Hakkımda</a>
+
+	
+
+	
+	<a class="cta" href="/index.xml">Takip Et</a>
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Vagrant ile yazılım geliştirmek
+                    </h1>
+                    <h2 class="headline">
+                      <div class="infos"><span class="info">Yayın Tarihi : 22/08/2015</span><span class="info">Tahmini okuma süresi : 4 dakika</span></div>
+                      <div class="tags">
+                      
+                      
+                          
+                              <a href="/tags/vagrant"><i class="fa fa-tag"></i>vagrant</a>
+                          
+                              <a href="/tags/lamp"><i class="fa fa-tag"></i>lamp</a>
+                          
+                              <a href="/tags/wamp"><i class="fa fa-tag"></i>wamp</a>
+                          
+                              <a href="/tags/mamp"><i class="fa fa-tag"></i>mamp</a>
+                          
+                              <a href="/tags/php"><i class="fa fa-tag"></i>php</a>
+                          
+                              <a href="/tags/mysql"><i class="fa fa-tag"></i>mysql</a>
+                          
+                              <a href="/tags/postgresql"><i class="fa fa-tag"></i>postgresql</a>
+                          
+                              <a href="/tags/node"><i class="fa fa-tag"></i>node</a>
+                          
+                              <a href="/tags/mongodb"><i class="fa fa-tag"></i>mongodb</a>
+                          
+                              <a href="/tags/redis"><i class="fa fa-tag"></i>redis</a>
+                          
+                              <a href="/tags/memcached"><i class="fa fa-tag"></i>memcached</a>
+                          
+                              <a href="/tags/virtualbox"><i class="fa fa-tag"></i>virtualbox</a>
+                          
+                              <a href="/tags/apache"><i class="fa fa-tag"></i>apache</a>
+                          
+                              <a href="/tags/nginx"><i class="fa fa-tag"></i>nginx</a>
+                          
+                      
+                      
+                      </div>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    <blockquote>
+<p><strong>Ön Bilgi</strong> : Makale yerel ortamda PHP ile yazılım geliştirmek için yazılmış olup mantık diğer platformlara ve yazılım dillerine uyarlanabilir.</p>
+</blockquote>
+
+<p>Ön bilgide de bahsettiğim gibi yerel ortamda <strong>PHP</strong> ile yazılım geliştirirken bize lazım olacak şeyler eğer Windows kullanıyorsak <strong>WAMP</strong>, Linux kullanıyorsak <strong>LAMP</strong> ya da Mac kullanıyorsak <strong>MAMP</strong> stack&rsquo;ı, projemiz yayına çıkmadan önce geliştirme için bir nebze zorunlu. Yani açacak olursak kısaltmalardaki ilk harfler bulunduğumuz platform&rsquo;u ikinci harf <strong>Apache</strong> HTTP sunucusunu, üçüncü harf <strong>MySQL</strong> sunucusunu ve son harf de <strong>PHP</strong> interpreter&rsquo;ını sembolize eder. Bu stack&rsquo;daki bileşenlerin dışında başka şeyler de var tabi. Mesela apache yerine <strong>Nginx</strong>, MySQL yerine <strong>PostgreSQL</strong> vb. gibi&hellip;</p>
+
+<p>Bu kadar sunucu paketini aynı anda sisteme kurmanın dışında düzgün ayarlanmazsa sunucu servislerinin devamlı çalışıp sisteme devamlı bir yük bindirmesi ve sistemde az da olsa bıracakları çöpler de ayrı bir sıkıntı. Bunun yerine sanallaştırılımış bir sunucumuz olsa ve her şeyi orada yapsak ve sanal makinayı kapattığımız anda sistemimizde gereksiz hiç bir şey çalışmasa mesela güzel olmaz mıydı?</p>
+
+<p><strong>Vagrant</strong>&lsquo;ın asıl amacı elbette bu değil ama bu da yararlarından bir tanesi. Vagrant temel olarak projenizi yayına alacağınız sunucunuzun aynısını kendi bilgisayarınızda sanal olarak kurup kullanmanızı sağlayan bir ara yazılım. Böylece platformlar arası uçurumlar ortadan kalkacağı için projenizi sunucunuzda yayına aldığınız zaman size sorun çıkarmadan çalışacaktır.</p>
+
+<p>Şimdi sorabilirsiniz; zaten <strong>VMWare</strong> var, <strong>VirtualBox</strong> var, güzel de çalışıyorlar, peki neden Vagrant kullanalım? Merak etmeyin Vagrant da çalışırken VMWare veya VirtualBox&rsquo;a ihtiyaç duyuyor zaten. Fakat sizi VirtualBox ya da VMWare&rsquo;in arayüzü ve ince ayarları ile uğraştırmaktansa tüm gereken ayarları sizin için yapıp istediğiniz bir klasörü sizin için sanal sunucudaki yazılımın çalışacağı klasör ile senkronize ediyor ve sanal sunucunuz başladığı anda yazılımınız çalışır duruma geliyor. Hatta sunucunuz headless (özellikle siz kurmadığınız sürece görsel arabirimi olmayıp sadece terminalden yönetilen) bir sunucu olduğu için ekranını bile görmenize gerek kalmayıp arkaplanda sessizce çalışıyor.</p>
+
+<p>Hemen hızlıca hayata geçirilebilecek bir örnekle başlamadan önce sistem gereksinimlerimizi öğrenelim. Öncelikle kullanacağınız <strong>Box</strong>&lsquo;a (Vagrant image&rsquo;larına box deniyor) göre değişen gereksinimler olmakla beraber tavsiyem kullandığınız bilgisayarın işlemcisinin sanallaştırma teknolojilerine uygun olması ve host işletim sisteminizin 64 Bit olması en iyi performans için bir nebze gerekli. <strong>Intel</strong> işlemci kullanıyorsanız <strong>VT-X</strong>, <strong>AMD</strong> işlemci kullanıyorsanız da <strong>AMD-V</strong> desteğinin işlemcinizde olması ve BIOS&rsquo;unuzda aktif olması birincil şartımız. Donanımsal gereksinimlerimizi öğrendiğimize göre yazılımsal gereksinimlerimize geçebiliriz.</p>
+
+<p>Önce sanallaştırma yazılımlarından birini sistemimize kuruyoruz. Tavsiyem bir çok Box image&rsquo;ı ile uyumlu olması açısından <a href="https://www.virtualbox.org" target="_blank">VirtualBox</a> kullanmanız. Hemen ardından <a href="https://www.vagrantup.com" target="_blank">Vagrant</a>&lsquo;ı da sistemimize kurup sanal makinemizi ayağa kaldırabiliriz. Ben bu örnekte PHP geliştirmek için en iyi image&rsquo;lardan biri olan <strong>ScotchBox</strong>&lsquo;u kullanacağım.</p>
+
+<p>Hemen ScotchBox reposunun bir kopasını <strong><code>git clone</code></strong> komutu ile çekiyoruz;</p>
+
+<pre><code class="language-sh">git clone https://github.com/scotch-io/scotch-box ozzyTest
+</code></pre>
+
+<p>Yukarıdaki komuttan sonra git bizim için ScotchBox reposunun bir kopyasını diskimizde <strong>ozzyTest</strong> klasörü altında oluşturacak. İşlem bittikten sonra;</p>
+
+<pre><code class="language-sh">cd ozzyTest
+</code></pre>
+
+<p>Komutu ile <strong>Vagrantfile</strong> dosyasının olduğu repo klasörümüze giriyoruz ve;</p>
+
+<pre><code class="language-sh">vagrant up
+</code></pre>
+
+<p>Komutu ile sanal makinamızın gerekli image&rsquo;larının indirilip bizim için oluşturulmasını ve sunucumuzun çalıştırılmasını sağlıyoruz. İşlem bittiğinde elimizde tam kapsamlı bir sunucu çalışmış ve bizi bekliyor olacak. Tek yapmanız gereken az önce oluşturulan <strong>ozzyTest</strong> repo klasörümüz içindeki <strong>public</strong> klasörüne proje dosyalarını kopyalamak. Hatta projenizi bu klasör altından düzenlerseniz değişiklikleriniz hemen hayata geçecektir.</p>
+
+<p>Peki bu ScotchBox neleri içeriyor? İşimize yarar mı? Şöyle bir liste vermek sanırım çok daha iyi olacak;</p>
+
+<p><strong>Sistem Zımbırtıları;</strong></p>
+
+<ul>
+<li>Ubuntu 14.04 LTS</li>
+<li>PHP 5.6</li>
+<li>Ruby 2.2.x</li>
+<li>Vim</li>
+<li>Git</li>
+<li>cURL</li>
+<li>Imagick</li>
+<li>Composer</li>
+<li>Beanstalkd</li>
+<li>Node</li>
+<li>NPM</li>
+</ul>
+
+<p><strong>Veritabanı Zımbırtıları;</strong></p>
+
+<ul>
+<li>MySQL 5.5</li>
+<li>PostgreSQL</li>
+<li>SQLite</li>
+</ul>
+
+<p><strong>Cache&rsquo;leme Zımbırtıları;</strong></p>
+
+<ul>
+<li>Redis</li>
+<li>Memcached</li>
+</ul>
+
+<p><strong>Node/NPM Zımbırtıları;</strong></p>
+
+<ul>
+<li>Grunt</li>
+<li>Bower</li>
+<li>Yeoman</li>
+<li>Gulp</li>
+<li>Browsersync</li>
+<li>PM2</li>
+</ul>
+
+<p><strong>Laravel Zımbırtıları;</strong></p>
+
+<ul>
+<li>Laravel Installer</li>
+<li>Laravel Envoy</li>
+<li>Blackfire Profiler</li>
+</ul>
+
+<p>Sunucumuzda ayrıca SSH sunucusu da kurulu ve aktif geldiğinden istediğimiz zaman repo klasörü içinde <strong><code>vagrant ssh</code></strong> komutunu vererek sunucumuza SSH üzerinden erişebilir ve istediğimiz herşeyi kendimize göre özelleştirebiliriz. Ayrıca Vagrant&rsquo;ın desteklediği en güzel özelliklerden biri olan <strong>shell provisioning</strong> ile sunucumuza başladığı anda çalıştırılmak üzere komutlar gönderebiliriz. Örneğin;</p>
+
+<pre><code>config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
+    # Shell komutlarını buraya yazıyoruz...
+    echo &quot;Great Scott!&quot;
+SHELL
+</code></pre>
+
+<p>Kodlarını repo klasörümüzdeki Vagrantfile dosyasında sondaki <strong><code>end</code></strong> satırından önce ekleyerek istediğimiz komutu her sunucu başladığında çalıştırabiliriz. Yukarıdaki örnekte sunucu ekranına her sistem açılışında &ldquo;<strong>Great Scott!</strong>&rdquo; yazacak.</p>
+
+<p>İstersek yine <strong>Vagrantfile</strong> dosyamızı düzenleyerek ScotchBox ile gelen varsayılan ağ bağlantısı ayarını private&rsquo;dan public&rsquo;e alabilir ve IP adresini kendi ağımıza uygun biçimde değiştirebiliriz. Böylece tek bir makinada çalışan sanal sunucuya ağdaki herkes erişebilir. Ayrıca yine buradaki ayarlardan senkronize edilecek klasörleri ve sanal sunucumuzun adını da düzenleyebiliriz.</p>
+
+<p>ScotchBox&rsquo;un <a href="https://scotch.io" target="_blank">sayfasından</a> daha detaylı ayarları öğrenip sunucunuzun üzerinde istediğiniz her türlü ayarı yapabilir ve sunucunuzu çalışmamız için gereken en iyi hale getirebilirsiniz. Bundan sonrası artık bir de sunucu ayarları ile kafayı yemek değil doğrudan işimize odaklanıp projelerimizi bitirmeye kalıyor.</p>
+
+<p>Peki günlük işimizi bitirdik, sanal sunucumuzu nasıl kapatacağız? Çok basit. Tek yapmanız gereken terminalden repo klasörümüze girip <strong><code>vagrant halt</code></strong> komutunu vermek. Sanal sunucumuzu komple silmek istersek de <strong><code>vagrant destroy</code></strong> komutu sanal makinamızı komple VirtualBox içerisinden uçuruyor. Daha sonra tekrardan <strong><code>vagrant up</code></strong> komutunu vererek zaten indirilmiş olan image&rsquo;dan bir kopya daha yaratılmasını sağlayabiliriz. Ayarlarını bozduğunuz ve çalışmaz hale gelen bir sunucu için uğraşmanıza gerek yok, imha edip yenisini başlatın ve işinize devam edin.</p>
+
+<p>Vagrant ile ilgili daha detaylı ayarları ve komutları <a href="https://docs.vagrantup.com" target="_blank">Vagrant Docs</a> sayfasından bulabilir ve kendinize özel sanal sunucularınızı yaratabilirsiniz.</p>
+
+<p>Umarım makale amacına ulaşır ve işlerinizi hızlandırmak adına Vagrant size yararlı bir yardımcı araç olur&hellip;</p>
+
+                </section>
+            </article>
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ozzyblog'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/ozguncagri" target="_blank">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        Bu blogdaki herşey MIT lisansı ile lisanslanmıştır!
+    
+    </p>
+</footer>
+
+        </section>
+
+        <script src="/js/jquery-2.2.4.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+    </body>
+</html>

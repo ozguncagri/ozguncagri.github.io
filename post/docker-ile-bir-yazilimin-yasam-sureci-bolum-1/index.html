@@ -1,0 +1,482 @@
+    <!DOCTYPE html>
+<html lang="tr">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="ozzyBlog">
+		<meta name="description" content="#coder #techlover">
+		<meta name="generator" content="Hugo 0.29" />
+		<title>Docker ile bir yazılımın yaşam süreci : Bölüm 1 &middot; ozzyBlog</title>
+		<link rel="shortcut icon" href="/images/favicon.ico">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/highlight.css">
+		
+
+		
+		<link rel="stylesheet" href="/css/font-awesome.min.css">
+		
+
+		
+		<link href="/index.xml" rel="alternate" type="application/rss+xml" title="ozzyBlog" />
+		
+	</head>
+
+    <body>
+       <nav class="main-nav">
+	
+	
+		<a href='/'> <span class="arrow">←&nbsp;</span>Ana Sayfa</a>
+	
+	<a href='/post'>Arşiv</a>
+	<a href='/tags'>Etiketler</a>
+	<a href='/about'>Hakkımda</a>
+
+	
+
+	
+	<a class="cta" href="/index.xml">Takip Et</a>
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Docker ile bir yazılımın yaşam süreci : Bölüm 1
+                    </h1>
+                    <h2 class="headline">
+                      <div class="infos"><span class="info">Yayın Tarihi : 03/09/2017</span><span class="info">Tahmini okuma süresi : 16 dakika</span></div>
+                      <div class="tags">
+                      
+                      
+                          
+                              <a href="/tags/docker"><i class="fa fa-tag"></i>docker</a>
+                          
+                              <a href="/tags/containers"><i class="fa fa-tag"></i>containers</a>
+                          
+                              <a href="/tags/images"><i class="fa fa-tag"></i>images</a>
+                          
+                              <a href="/tags/cluster"><i class="fa fa-tag"></i>cluster</a>
+                          
+                              <a href="/tags/virtualization"><i class="fa fa-tag"></i>virtualization</a>
+                          
+                              <a href="/tags/development"><i class="fa fa-tag"></i>development</a>
+                          
+                              <a href="/tags/production"><i class="fa fa-tag"></i>production</a>
+                          
+                              <a href="/tags/cloud"><i class="fa fa-tag"></i>cloud</a>
+                          
+                      
+                      
+                      </div>
+                    </h2>
+                </header>
+                
+                <section id="post-body">
+                    
+
+<p>Yazılım hayatınız ile ilgili kendinize bir iyilik yapmak istiyorsanız, yapabileceğiniz en güzel şeylerden biri de Docker&rsquo;ı kullanmayı öğrenmek olur sanırım. Docker&rsquo;ın sağladığı avantajlar ve kolaylıklar göz önüne alındığında &ldquo;daha önce neden kullanmamışım ben bunu&rdquo; demeyi size garantileyecek kadar iyi bir altyapı sunuyor bizlere. Sunucu ortamının yönetimini o kadar basit bir hale getiriyor ki saniyeler içerisinde hızlıca cluster kurup, en iyi ayarlanmış sistemleri dahi utandıracak güzellikte bir yapı sunuyor bizlere.</p>
+
+<h2 id="peki-nedir-bu-docker">Peki; nedir bu Docker?</h2>
+
+<p>Docker aslında zaten Linux&rsquo;larda yıllardır var olan <strong>LXC</strong> yani <strong>Linux Containers</strong>&lsquo;ı yönetmek için <strong>GoLang</strong> ile yazılmış bir ara yazılım aslında. Fakat bu işi Linux&rsquo;un kendi yerel araçlarından çok çok daha hızlı ve kolay bir biçimde yapabildiği için özellikle yazılım geliştirenler tarafından çok yüksek oranda tercih ediliyor. Tercih sebeplerinden bir başkası ise; &ldquo;kodum bende çalışıyordu ama sunucuda çalışmıyor&rdquo; sıkıntısını ortadan kaldırmak. Çünkü kendi makinemizde bir container nasıl çalışıyorsa başka yerde çalıştırıldığında da istisnasız aynı biçimde çalışır. Container&rsquo;lar ile sunucu içerisindeki yazılımlar sunucu ortamından izole edilip sanki ayrı bir makinenin içinde tek başlarına çalışıyor gibi iş yaparlar. Bu izolasyonla beraber Docker bize izole ağ desteği gibi konularda da yardımcı olup yazılımlarımızın birbiri ile belirlediğimiz sınırlar içerisinde iletişime geçmesine de yardımcı oluyor.</p>
+
+<p>Konu daha fazla derinleşmeden Docker&rsquo;ın demirbaşları olan image&rsquo;ler ve container&rsquo;lara da bir açıklama getirelim. Image&rsquo;ler aslında container&rsquo;ları yaratmamız için gereken tam teşekküllü şablonlar olarak da görülebilirler. Yani image bir mimari çizim ise container evdir. Tabi bu örneği baz alarak evin yapılmasının uzun süren bir süreç olduğunu varsayıp container&rsquo;ların oluşturulmasının da uzun süreceğini düşünebilirsiniz fakat öyle değil. Image&rsquo;ler build edilirken gerekli tüm işlemler ve yüklemeler dağıtılabilirliği korumak adına önden yapıldığı (ya da yapılması tavsiye edildiği) için bir container&rsquo;ı yaratmak çok çok kısa sürecektir. Tabi image&rsquo;i hazırlayan kişi bu işlemlerin çalışma sırasında yapılması için de bir config hazırlayabilir fakat böyle bir durumda image&rsquo;den container&rsquo;ı ayağa kaldırmak vakit harcayan bir süreç haline gelir ki bu da asla istenmeyen bir durum olan <strong>verilen servisin durmasına</strong> sebep olur. Bu yüzden image&rsquo;lerinizi her zaman <strong>çalıştır ve unut</strong> mottosu ile hazırlamanızı (bir şahsi görüş olarak) tavsiye ederim.</p>
+
+<h2 id="güzel-sanallaştırmaya-karşı-avantajları-neler">Güzel; sanallaştırmaya karşı avantajları neler?</h2>
+
+<p>Sanallaştırılmış bir sunucu kurduğumuzda host makinede hypervisor üzerinde çalışan tam bir işletim sistemi için de kaynak ayırmamız gerekiyor ki; zaman zaman bu konuk işletim sistemi sadece kendi başına çok fazla kaynak bile tüketebiliyor. Üstelik aynı sunuculardan sayıca çok fazla ihtiyacımız olduğunda her biri için bir de sanal işletim sistemi kurmak ve kaynağımızın bir kısmını bu işletim sistemleri ile gereksiz yere paylaşmak açıkçası donanımı tam verimli kullanmak açısından (hardware utilization) pek de verimli değil. Ayrıca çok fazla sayıdaki sunucuyu bir düzende çalıştırmak için bir de ayrı bir load balancer kurulması ve herhangi bir terslik durumuna karşı monitörlenmesi de gerekmekte. Bunun yanında suncularımız için güvenlik ayarları (gerek ağ, gerek sistem), gerekli paket kurulumları gibi bir çok şeyin yapılması ve dönem dönem bakımlarının yapılması ya da güncellenmesi de cabası.</p>
+
+<p>İşler Docker&rsquo;a geldiğinde çok daha fazla basitleşiyor. Öncelikle işletim sistemi sadece bire iniyor ki o da zaten host makinenin kendi işletim sistemi. Bu sistemin üzerinde hypervisor yerine Docker Engine (Deamon) çalışıyor ve container yönetimini bizim için çok kolaylaştırıyor. Bunun yanında Docker bizim için cluster servisi olan Docker Swarm&rsquo;ı, izole networkleri ve bu networklerde minik bir DNS hizmeti ile automatic service discovery işini çözüp, Swarm modu için de yük dengeleme (load balancing) işini de kendi hallediyor. Ayrıca konuk bir işletim sistemi için kaynak harcamadığımız için aynı fiziksel sunucu üzerinde sanallaştırmadan kat kat daha fazla container çalıştırabiliyoruz. Bir şahsi örnek vermem gerekirse MacBook Pro üzerinde sırf makineyi tıkamak için deneme yapıp için 100 tane web server çalıştırdığımda makinede sanki hiçbir şey çalışmıyormuşcasına ve neredeyse hiç kaynak harcamadan 100 tane sunucuyu (apache + php7 + tonla ek apache modülü ile) swarm modunda mükemmel çalıştırmıştı.</p>
+
+<p>Yapı olarak sanallaştırılmış ve dockerlaştırılmış bir sunucudaki kaynak tüketimini göstermek istersek katmanları şöyle bir grafik ile sanırım kaba taslak gösterebiliriz;</p>
+
+<div class="svg-container">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 400">
+      <g fill="none" fill-rule="evenodd">
+        <path fill="#4A4A4A" d="M20 331h240v30H20z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(20 331)">
+          <tspan x="19.98" y="24">BARE METAL MACHINE</tspan>
+        </text>
+        <path fill="#6121D3" d="M20 301h240v30H20z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(20 301)">
+          <tspan x="79.66" y="24">HOST OS</tspan>
+        </text>
+        <path fill="#9B9B9B" d="M20 271h240v30H20z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(20 271)">
+          <tspan x="61.15" y="24">HYPERVISOR</tspan>
+        </text>
+        <path fill="#6121D3" d="M20 161h70v110H20z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(20 161)">
+          <tspan x="4.16" y="54">GUEST </tspan> <tspan x="22" y="74">OS</tspan>
+        </text>
+        <path fill="#F86B1C" d="M20 91h70v70H20z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(20 91)">
+          <tspan x="11.49" y="34">BINS/</tspan> <tspan x="15.49" y="54">LIBS</tspan>
+        </text>
+        <path fill="#2A648B" d="M20 21h70v70H20z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(20 21)">
+          <tspan x="9.15" y="44">APP A</tspan>
+        </text>
+        <path fill="#6121D3" d="M105 161h70v110h-70z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(105 161)">
+          <tspan x="4.16" y="54">GUEST </tspan> <tspan x="22" y="74">OS</tspan>
+        </text>
+        <path fill="#F86B1C" d="M105 91h70v70h-70z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(105 91)">
+          <tspan x="11.49" y="34">BINS/</tspan> <tspan x="15.49" y="54">LIBS</tspan>
+        </text>
+        <path fill="#2A648B" d="M105 21h70v70h-70z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(105 21)">
+          <tspan x="9.15" y="44">APP A</tspan>
+        </text>
+        <path fill="#6121D3" d="M190 161h70v110h-70z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(190 161)">
+          <tspan x="4.16" y="54">GUEST </tspan> <tspan x="22" y="74">OS</tspan>
+        </text>
+        <path fill="#F86B1C" d="M190 91h70v70h-70z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(190 91)">
+          <tspan x="11.49" y="34">BINS/</tspan> <tspan x="15.49" y="54">LIBS</tspan>
+        </text>
+        <path fill="#2A648B" d="M190 21h70v70h-70z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(190 21)">
+          <tspan x="8.65" y="44">APP B</tspan>
+        </text>
+        <text fill="#000" font-family="ArialMT, Arial" font-size="18" transform="translate(20 21)">
+          <tspan x="49.13" y="366">Virtualized Server</tspan>
+        </text>
+        <path fill="#4A4A4A" d="M290 331h240v30H290z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(290 331)">
+          <tspan x="19.98" y="24">BARE METAL MACHINE</tspan>
+        </text>
+        <path fill="#6121D3" d="M290 301h240v30H290z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(290 301)">
+          <tspan x="79.66" y="24">HOST OS</tspan>
+        </text>
+        <path fill="#7ED321" d="M290 271h240v30H290z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(290 271)">
+          <tspan x="44.49" y="24">DOCKER ENGINE</tspan>
+        </text>
+        <path fill="#F86B1C" d="M290 201h140v70H290z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(290 201)">
+          <tspan x="26.98" y="44">BINS/LIBS</tspan>
+        </text>
+        <path fill="#2A648B" d="M290 131h40v70h-40z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(290 131)">
+          <tspan x="2.15" y="34">APP </tspan> <tspan x="14" y="54">A</tspan>
+        </text>
+        <path fill="#2A648B" d="M340 131h40v70h-40z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(340 131)">
+          <tspan x="2.15" y="34">APP </tspan> <tspan x="14" y="54">A</tspan>
+        </text>
+        <path fill="#2A648B" d="M390 131h40v70h-40z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(390 131)">
+          <tspan x="2.15" y="34">APP </tspan> <tspan x="14" y="54">A</tspan>
+        </text>
+        <path fill="#F86B1C" d="M440 201h90v70h-90z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(440 201)">
+          <tspan x="1.98" y="44">BINS/LIBS</tspan>
+        </text>
+        <path fill="#2A648B" d="M440 131h40v70h-40z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(440 131)">
+          <tspan x="2.15" y="34">APP </tspan> <tspan x="14" y="54">B</tspan>
+        </text>
+        <path fill="#2A648B" d="M490 131h40v70h-40z"/>
+        <text fill="#FFF" font-family="ArialMT, Arial" font-size="18" transform="translate(490 131)">
+          <tspan x="2.15" y="34">APP </tspan> <tspan x="14" y="54">B</tspan>
+        </text>
+        <text fill="#000" font-family="ArialMT, Arial" font-size="18" transform="translate(290 131)">
+          <tspan x="46.47" y="256">Dockerized Server</tspan>
+        </text>
+      </g>
+    </svg>
+</div>
+
+<p>Görüleceği üzere konuk işletim sistemleri sunucuda olması gerekenden çok daha fazla kaynak tüketimine sebep oluyor. Ayrıca sanallaştırmadaki izolasyon çok katı sınırlarla çizildiği için içerideki servis kendine ayrılan sanal makinenin tamamını kullanamazsa o kaynak her halükarda host makineden ayrılmış oluyor. Daha da kötüsü, içerideki servis tüm kaynağını tüketirse konuk sisteme ayrılan kaynak kendi kendini disk dışında genişletemiyor ki genelde performans için diskleri sabit bir kalıpla ayarlarız. İşin sanallaştırma tarafındaki konuk sistemlere ayrılan gereksiz disk alanından bahsetmiyorum bile, çünkü arada muazzam bir fark var. Sanallaştırma her ne kadar fiziksel sunucu içinde benzer yapılar için homojen bir dağılım gibi görünse de, içerideki hava kabarcıkları diye tabir edebileceğimiz kullanılmayan kaynak host makineye geri gelmediğinden, sanallaştırılmış sistemde servislerin ne kadar yük kaldırabileceğini ve karşılığında ne kadar kaynak tüketeceğini iyi test edip, kaynakları ona göre planlayarak host makineden yararlanmak gerekiyor. Ya da bu işi otomatize edecek monitör araçlarını kullanarak zaten ekstra kaynak tüketen konuk işletim sistemine bir de bu monitörleme çözümlerinin de yükünü bindirmek gibi milyon tane ince detay işin içine giriyor. Özellikle bakım gibi durumlarda bazen dakikalarla ölçülen sanal sunucuların aktive olması ya da yeniden başlaması Docker ile milisaniyelere kadar düşebiliyorken hızlıca tüm sistemimize güncelleme yapıp herşeyi hayata alabiliyoruz. Bu yüzden sınırlı bütçe ile çok fazla sunucu kurmak istiyorsak aslında Docker&rsquo;ın bize çok büyük yardımı dokunuyor.</p>
+
+<h2 id="tamam-herşey-güzel-de-nereden-başlamalı">Tamam herşey güzel de nereden başlamalı?</h2>
+
+<p>Öncelikle şunu bilmeliyiz ki Docker native olarak sadece Linux üzerinde çalışıyor. Windows Server üzerinde çalışan hali de sadece windows container&rsquo;larını çalıştırabiliyor fakat yazılım geliştirmek için olan <strong>Docker for Windows</strong> ve <strong>Docker for Mac</strong> gibi iki versiyonu var ki bunlar aslında host makine üzerinde küçücük (25 MB) bir Linux çalıştırıp (yanlış hatırlamıyorsam windows üzerinde hyper-v ile MacOS üzerinde xhyv ile) local Docker client&rsquo;ını bu Linux&rsquo;daki Docker Engine&rsquo;e bağlayarak sanki kendi host işletim sisteminde kuruluymuş gibi çalıştırabiliyor. Docker&rsquo;ın bu kısmı neredeyse tam otomatik bir yapı gibi aslında. Sadece yazılımı yükleyip ilk kurulum ekranında Docker&rsquo;a ilk ayarları için yetki vermek gerekiyor o kadar. İşin Windows tarafı ile ilgili net bir şey söyleyemesem de MacOS&rsquo;larda Docker&rsquo;ı Applications klasörümüze sürükleyip açtığımızda bizden ilk ayar için yönetici yetkisi isteyip Docker&rsquo;ı çok kısa süre içerisinde yerel terminalimizden kullanılabilir hale getiriyor. Her platform için kurulum yönergelerini zaten Docker&rsquo;ın kurulum yönergeleri <a href="https://docs.docker.com/engine/installation" target="_blank">sayfasından</a> bulabilirsiniz. Ben burada bir kurulum tarifi vermek istemiyorum. Özellikle de Linux tarafında bazen yeni versiyonlarla ek adımlar gelebildiği gibi her dağıtım için de farklı yönergeler olabiliyor. Bu yüzden en iyisi orijinal Docker dökümanlarından bakıp Linux sunucunuza öyle kurmak. Sonrasında kurulumun sorunsuz olduğunu görebilmek adına yapmamız gereken tek şey terminalimizi açıp <code>docker</code> komutunu vermek. Eğer basit kullanım klavuzu çıktısını karşımızda görüyorsak Docker sistemimizde düzgün olarak başlamış ve local terminalimize bağlanmış demektir. Bundan sonra istersek <code>docker version</code> komutunu vererek client&rsquo;ımız ve Docker Engine&rsquo;imiz ile ilgili bilgi alabiliriz.</p>
+
+<h2 id="kurulumlar-sorunsuz-şimdi-sırada-ne-var">Kurulumlar sorunsuz şimdi sırada ne var?</h2>
+
+<p>Şimdi bir ritüel haline gelmiş olan <strong>hello-world</strong> image&rsquo;inden bir container oluşturup çalıştırarak nelerin döndüğüne bir göz atalım. Terminalimizden önce aşağıdaki komutu verelim ve neler olduğunu inceleyelim;</p>
+
+<pre><code class="language-sh">docker run -it hello-world
+</code></pre>
+
+<p>Bu komuttan sonra ekranda muhtemelen aşağıdakine benzer bir çıktı göreceğiz;</p>
+
+<pre><code class="language-plain">Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+b04784fba78d: Pull complete
+Digest: sha256:f3b3b28a45160805bb16542c9531888519430e9e6d6ffc09d72261b0d26ff74f
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the &quot;hello-world&quot; image from the Docker Hub.
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://cloud.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/engine/userguide/
+</code></pre>
+
+<p>Docker varsayılan yöntem olarak oluşturmaya çalıştığımız container&rsquo;ın image&rsquo;lerini local repository&rsquo;den bulup yaratmaya çalışır fakat olur da aradığı image local repository&rsquo;de bulunmuyorsa image&rsquo;i Docker Hub&rsquo;dan çekerek container&rsquo;ı oluşturmaya çalışır. Eğer aradığımız image Docker Hub&rsquo;da da bulunmuyorsa doğal olarak hata alırız. Üstteki komutla Docker ilk önce kendi local repository&rsquo;sine bakarak <code>hello-world</code> image&rsquo;ini aradı, bulamadığında da Docker Hub&rsquo;dan bu image&rsquo;i indirerek container&rsquo;ı oluşturup çalıştırdı. Docker&rsquo;ın <strong>run</strong> komutuna gönderdiğimiz ek argümanlardan <code>-i</code> anahtarı ile interaktif modu açarak standard input&rsquo;u bize bağladı. <code>-t</code> anahtarı ile de yalancı bir terminal yaratıp bunu da bizim terminalimizle ilişkilendirdi ve içeride çalışan yazılımın ürettiği çıktıyı kendi terminalimize aktardı.</p>
+
+<p>Hep container oluşturmaktan bahsediyoruz ama bu container&rsquo;lar nerede diye soracak olursak tüm oluşturulan container&rsquo;ları görmek için <code>docker ps -a</code> komutunu verebiliriz. Ya da yok ben sadece o anda çalışan container&rsquo;ları görelim dersek de <code>docker ps</code> yazarak sadece o anda çalışan container&rsquo;ların listesini detaylıca alabiliriz. Örneğin;</p>
+
+<pre><code class="language-plain">CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                      PORTS         NAMES
+5fd83e5997a1   hello-world   &quot;/hello&quot;   15 seconds ago   Exited (0) 13 seconds ago                 happy_montalcini
+</code></pre>
+
+<p>Bu çıktılara bakarak <strong>CONTAINER ID</strong> ve <strong>NAMES</strong> kolonları altındaki verilerden container&rsquo;lar ile işlemler yapabiliriz. Örneğin yaratılan bir container&rsquo;ı silmek istersek aşağıdaki komutu verebiliriz;</p>
+
+<pre><code class="language-sh">docker rm 5fd83e5997a1
+# ya da
+docker rm happy_montalcini
+</code></pre>
+
+<p>Üstteki komutla <strong>5fd83e5997a1</strong> id&rsquo;sine sahip olan ya da <strong>happy_montalcini</strong> isimli container&rsquo;ı kaldırabiliriz. Bu isimlendirmeleri, biz özellikle yarattığımız container&rsquo;a bir isim vermediğimiz sürece (ki ilerideki bölümlerde özellikle isim vermemiz gerekecek) Docker kendi isim kütüphanesinden rastgele iki ismi kombine ederek uydurur.</p>
+
+<p>Container&rsquo;lar ile ilgili diğer işlemlere geçmeden önce şu soruyu cevaplamamız gerekiyor; aynı <strong>run</strong> komutunu tekrar çalıştırırsak ne olur? Tekrar çalıştırdığımızda yukarıdaki işlemleri tekrar yapar ve yeni bir container daha oluşturur. Yani <strong>hello-world</strong> image&rsquo;inden bir container daha oluşturarak aynı özelliğe sahip iki container yaratmış olur. Bu yüzden bir container&rsquo;ı tekrar çalıştırmak istiyorsak bir dahaki sefere run komutu ile değil Docker&rsquo;ın <code>start</code> komutu ile aynı container&rsquo;ı tekrar çalıştırabiliriz. Örneğin;</p>
+
+<pre><code class="language-sh">docker start 5fd83e5997a1
+</code></pre>
+
+<p>Bu kadar bahsediyoruz ama image&rsquo;ler ne alemde? Image&rsquo;ler bizim local repository&rsquo;mizde biz silmediğimiz sürece duruyor olacaklar. Local repository&rsquo;mizdeki image&rsquo;leri görmek için de <code>docker images</code> komutunu vererek indirilmiş image&rsquo;leri görebiliriz.</p>
+
+<pre><code class="language-plain">REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+hello-world           latest              1815c82652c0        2 months ago        1.84kB
+</code></pre>
+
+<p>Ayrıca daha önce bahsettiğimiz Docker Hub üzerinden bir image aramak istersek Docker&rsquo;ın <code>search</code> alt komut setini kullanabilir. Örneğin MySQL image&rsquo;ini aramak istersek;</p>
+
+<pre><code class="language-sh">docker search mysql
+</code></pre>
+
+<p>komutunu verebilir ve aradığımız kelime ile ilgili orijinal repoları ya da kullanıcıların yarattığı repoları arayabiliriz. Olur da herhangi bir image&rsquo;i container oluşturmadan sadece indirmek istersek de <code>pull</code> alt komut seti işimizi görecektir;</p>
+
+<pre><code class="language-sh">docker pull mysql
+</code></pre>
+
+<p>Bu komuttan sonta Docker bizim için Hub&rsquo;dan orijinal MySQL image&rsquo;ini indirecek ve kendi local repositorymize ekleyecektir. Olurda özellikle bir versiyona ait bir image&rsquo;i indirmek istersek de pull komutundan sonraki image isminin sonuna iki nokta koyup versiyon bilgisini eklememiz yeterli olacaktır. Örneğin;</p>
+
+<pre><code class="language-sh">docker pull mysql:5.9.1
+</code></pre>
+
+<p>Eğer kullanmadığımız bir image&rsquo;i silmek istersek ve bu image&rsquo;den türetilmiş herhangi bir container bulunmuyorsa şu komutla istediğimiz image&rsquo;i de silebiliriz;</p>
+
+<pre><code class="language-sh">docker rmi hello-world
+</code></pre>
+
+<p>Bu komuttan sonra Docker <strong>hello-world</strong> ismine sahip image&rsquo;i silecektir. Olur da aynı image&rsquo;den birden fazla versiyonlarda varsa image adının sonuna iki noktadan sonra versiyon bilgisini (TAG başlığı altındaki bilgi) ekleyip sadece o versiyona ait image&rsquo;i silebiliriz. Bir örnekle pekiştirmek istersek;</p>
+
+<pre><code class="language-sh">docker rmi hello-world:3
+</code></pre>
+
+<p>Bu komutla da Docker <strong>hello-world</strong> image&rsquo;inin <strong>3</strong> numaralı versiyonunu (eğer repomuzda olsaydı) silecektir. Eğer olurda image&rsquo;in yaratılması sırasında bir sorun olursa ya da image yaratılırken herhangi bir şekilde isimlendirilmemişse isim verisine erişemeyeceğimiz için local repository&rsquo;mizdeki image&rsquo;in id&rsquo;si ile de silebiliriz;</p>
+
+<pre><code class="language-sh">docker rmi 1815c82652c0
+</code></pre>
+
+<p>Docker bu komutla <strong>1815c82652c0</strong> id&rsquo;ye ait image&rsquo;i ismi ya da versiyonu atanmamış dahi olsa silecektir.</p>
+
+<p>Şimdiye kadar kullanılan komutlar aslında Docker&rsquo;da tanımlanmış kısayol komutlardı. Komutların asıl uzun hallerine bir de bakacak olursak aslında Docker&rsquo;ın bizim için komutlarda bir konvansiyon yarattığını ve aslında hepsini kullanırken belli bir şablon üzerinden gittiğini ve de aslında birini kullanabiliyorsak hepsini kullanabileceğimizi görebiliriz.</p>
+
+<p>Mesela daha önce kullandığımız container&rsquo;larımızı ve image&rsquo;lerimizi yöneten komutların uzun hallerine de bir göz atalım. Mesela container silen şu kısa komut;</p>
+
+<pre><code class="language-sh">docker rm hello-world
+</code></pre>
+
+<p>yerine şu uzun komutu da verebilirdik;</p>
+
+<pre><code class="language-sh">docker container rm hello-world
+</code></pre>
+
+<p>ya da tüm container&rsquo;ların listesini aldığımız şu komuta bakacak olursak;</p>
+
+<pre><code class="language-sh">docker ps -a
+</code></pre>
+
+<p>aynı komutu aslında uzun hali ile şöyle de yazabilirdik;</p>
+
+<pre><code class="language-sh">docker container ls -a
+</code></pre>
+
+<p>ya da bir başka komut olan image&rsquo;leri sildiğimiz;</p>
+
+<pre><code class="language-sh">docker rmi hello-world
+</code></pre>
+
+<p>komutu yerine uzun uzun şu komutu da yazabilirdik;</p>
+
+<pre><code class="language-sh">docker image rm hello-world
+</code></pre>
+
+<p>Dikkat edeceğiniz üzere komutların uzun hallerinde Docker bizim için hep bir şablon ile devam ediyor. Bir komuttan örnekle gidecek olursak <strong>docker</strong> ile ana komuta ardından <strong>image</strong> diyerek image&rsquo;lerin alt başlığına ve <strong>rm</strong> diyerek o image&rsquo;i silmek istediğimize ve de <strong>hello-world</strong> diyerek hangi image olduğunu belirtip işimizi halledebiliyoruz. Docker bu yapıyı her kısım için uyguladığı için oldukça anlaşılır ve tahmin edilebilir bir yapısı var. Ayrıca her yapılan komut ve alt başlık için de detaylı kullanım klavuzu da barındırdığı için Docker&rsquo;ı bir kere kullanmaya başladığımızda kolay kolay pek tıkanmıyoruz aslında. Örneğin image sildiğimiz komut için bir yardım almak istersek;</p>
+
+<pre><code class="language-sh">docker image rm --help
+</code></pre>
+
+<p>komutunu verip image silmek ile ilgili alt detaylarla ilgili bilgi alabiliriz. Ya da komple image alt başlığı ile ilgili detaylı bilgi almak istersek de şu komutu kullanabiliriz;</p>
+
+<pre><code class="language-sh">docker image --help
+</code></pre>
+
+<p>Bu şablonu takip ederek Docker ile ilgili herhangi bir işlem için detaylı kullanım bilgisi alabilmek mümkün olduğu için komut çok spesifik bir yapıya sahip olmadığı sürece alacağımız yardımlar her işimizi görecektir. Tek yapmamız gereken Docker&rsquo;ın nasıl bir düzeneğe ve çalışma mantığına sahip olduğunu kavrayabilmek ve yardıma ihtiyacımız olduğunda komutlara <code>--help</code> anahtarını eklemek.</p>
+
+<h2 id="haydi-daha-fazla-detaya-inelim">Haydi, daha fazla detaya inelim!</h2>
+
+<p>Daha önce yukarıda bahsettiğimiz <strong>çalıştır ve unut</strong> mottosunu biraz desteklemek üzere container&rsquo;ları çalıştırırken kullandığımız komutlara biraz daha değinelim. Daha önce kullandığımız container çalıştıran komutlarda henüz kullanmadığımız bir anahtar olan <code>-d</code> ile çalıştırdığımız container&rsquo;ın arka planda çalışmasını ve ön tarafa herhangi bir veri göndermemesini, daha da önemlisi terminalimizin çalışan container&rsquo;a bağlanmamasını sağlayabiliriz. Şöyle ki;</p>
+
+<pre><code class="language-sh">docker run -d -p 6373:6379 redis
+</code></pre>
+
+<p>Yukarıdaki komut ile arka planda çalışan bir Redis sunucusuna sahip olabiliriz mesela. Ayrıca bu komuttan hareketle yeni bir anahtar olan <code>-p</code> ve o anahtara veri olarak paslanan <code>6373:6379</code> verisine de bir göz atalım. Öncelikle komutumuz bu sunucunun <code>-d</code> anahtarı ile arkada çalışacağını söyledi ve <code>-p</code> anahtarı ile de dışarıdan (iki noktanın sol tarafı) <code>6373</code> nolu porta yapılacak istekleri container&rsquo;ın içerisine (iki noktanın sağ tarafı) <code>6379</code> nolu porta iletmesini söyledik. Bu iki noktalı notasyonu ayrıca container&rsquo;ların volume ayarı gibi herhangi bir klasörü container&rsquo;ın içerisindeki bir klasöre bağladığımız komutlarda (ilerideki örneklerde karşımıza çıkacak) da kullanıyoruz.</p>
+
+<p>Komutlarda biraz daha fazla detay görebilmek adına biraz daha detaylı bir komut vererek bu sefer de sunucumuzda bir MySQL container&rsquo;ı çalıştıralım;</p>
+
+<pre><code class="language-sh">docker run -d -p 3306:3306 \
+--name veritabani \
+--restart always \
+-e MYSQL_ROOT_PASSWORD='root' \
+mysql
+</code></pre>
+
+<p>&ldquo;E yuh artık birden böyle örneğe geçilir mi?&rdquo; diyenler olacaktır telaş yapmaya gerek yok çünkü satır satır, kelime kelime herşeyi açıklayacağız. Öncelikle ters slash&rsquo;lar ile ekrana sığabilmesi için birkaç satıra yayılmış komut aslında tek bir satırda da yazılabilir. Zaten ilk satırdan bildiğimiz <code>-d</code> anahtarı ile detach modda çalışmasını istediğimiz container&rsquo;ımızdan içeride ve dışarıda <code>3306</code> portunu dinlemesini istedik. İkinci satırdaki <code>--name</code> anahtarı ile anlaşılacağı üzere çalışacak container&rsquo;ımıza <strong>veritabanı</strong> ismini verdik ve istersek bundan sonra bu isimle container&rsquo;ımızı yönetebiliriz. Üçüncü satırdaki <code>--restart</code> anahtarına pasladığımız <code>always</code> değeri ile herhangi bir sorun olup container&rsquo;ımızın durması durumunda tekrardan başlatılmasını istediğimizi Docker Engine&rsquo;e iletmiş olduk. Dördüncü satırda <code>-e</code> anahtarı ile container&rsquo;ın çalıştığı izole ortam için ortam değişkeni (environment variables) tanımlamış olduk. Eğer olur da birden fazla ortam değişkeni tanımlamamız gerekirse de yine <code>-e</code> anahtarını istediğimiz sayıda kullanarak gerektiği kadar ortam değişkeni tanımlayabiliriz. Beşinci ve son satırda kullanacağımız image&rsquo;in adını belirttik sadece. Eğer image isminden sonra başka bir executable yolu yazarsak ve image&rsquo;imiz buna müsaitse o image içinde varsayılan komut yerine bizim istediğimiz komutu çalıştırır. Her ne kadar mysql image&rsquo;i bunun için uygun değilse de çoğunlukla farklı entrypoint seçmek için kullanılır. Yani eğer şöyle bir komut verseydik;</p>
+
+<pre><code class="language-sh">docker run -it busybox /bin/sh
+</code></pre>
+
+<p>Docker bizim için <strong>busybox</strong> image&rsquo;i içinde shell&rsquo;i bir container olarak başlatacaktır. Eğer olur da bir şekilde çalışan bir container&rsquo;ın içinde varsayılanın dışında bir komut başlatmak istersek ya da bir şekilde container içindeki shell&rsquo;e ulaşmamız gerekirse Docker&rsquo;ın <code>exec</code> komutu işinizi fazlası ile görecektir. Bir örnek vermek istersek de;</p>
+
+<pre><code class="language-sh">docker exec -it webserver /bin/sh
+</code></pre>
+
+<p>gibi bir komut ile webserver ismini verdiğimiz container&rsquo;ın içindeki <code>/bin</code> klasöründe bulunan shell&rsquo;i çalıştırıp zaten bildiğimiz <code>-i</code> ve <code>-t</code> anahtarları ile terminalimize bağlayacaktır. Zaten shell&rsquo;imizdeki kullanıcı adının ve makineadının değişiminden container&rsquo;ın içine girdiğimizi de görebilirsiniz.</p>
+
+<p>Tam bu noktada bir uyarı yapmak gerekirse, container&rsquo;ların içine erişmek için <strong>sakın ama sakın</strong> SSH yapmaya çalışmak ya da image&rsquo;larınızı build ederken içlerine zorla SSH server gömmeye çalışmak gibi bir hataya düşmeyin. Hatta bu tip bir girişimde bulunmanız durumunda alacağınız muhtemel tepki yüksek oranda &ldquo;bu nasıl docker kullanmak?&rdquo; ya da yabancıların tabiri ile &ldquo;WTF?&rdquo; gibi bir şey olacaktır. Container&rsquo;lar yapısal olarak içerisinde sadece bir işlemin çalışması için ayarlanmalıdır. İstenirse birden fazla sunucu da tek container&rsquo;ın içinde de çalışabilir fakat Docker için önerilen yapı her türlü sunucuların birbirinden ayrılıp farklı container&rsquo;lar içerisinde çalıştırılmak üzere ayarlanmasıdır. Böylece bir yerde tıkanma yaratan servisin sayısı Swarm gibi yapılarda arttırılıp darboğaz gibi bir durumun oluşması rahatlıkla engellenebilir.</p>
+
+<p>Bu erişimin dışında tamamen izole edilen bir container&rsquo;ın içerisine ya da container içerisinden bir dosyayı host makine&rsquo;ye aktarmak isterseniz de Docker&rsquo;ın <code>cp</code> alt komut setini kullanabilirsiniz. Birer örnekle iki yöne olan aktarımı da açıklamak istersek;</p>
+
+<pre><code class="language-sh"># Host makineden container içine kopyalamak
+docker cp ~/config.cfg webserver:/home/config.cfg
+
+# ya da container içinden host makineye kopyalamak
+docker cp webserver:/home/config.cfg ~/config.cfg 
+</code></pre>
+
+<p>Üstteki satırlarla ilk komutta home klasörümüz içindeki <code>config.cfg</code> dosyasını <code>webserver</code> isimli container&rsquo;ın içinde <code>/home/config.cfg</code> yoluna kopyalamış olduk. Hemen altında da aynı komutu ters yöne çalıştırmış olduk.</p>
+
+<p>Eğer olur da container&rsquo;ımız durduğunda continer&rsquo;ın silinmesini istiyorsak, yani geçici olarak o container&rsquo;ı yaratıyorsak da <strong>run</strong> komutuna <code>--rm</code> anahtarını ekleyerek container&rsquo;ın durduğu zaman silinmesini sağlayabiliriz. Örneğin;</p>
+
+<pre><code class="language-sh">docker run -it --rm busybox /bin/ping -c 5 8.8.8.8
+</code></pre>
+
+<p>Bu komuttan sonra <code>docker ps</code> ya da <code>docker ps -a</code> komutunu verip container listesini aldığımızda ping atan <strong>busybox</strong> image&rsquo;ından türeyen bir container&rsquo;ın ortalıkta olmadığını göreceksiniz.</p>
+
+<p>Bir başka sık kullanılan anahtar da herhangi bir klasörü veya dosyayı container içinde bir klasöre ya da dosyaya bağlayan <code>-v</code> anahtarı. Bunun için verilebilecek en güzel örnek bir web sunucusu olabilir. Mesela sunucumuzda bir nginx çalıştırıp üzerinden bir klasördeki web sayfasını yayınlamak istersek suna benzer bi komut verebiliriz;</p>
+
+<pre><code class="language-sh">docker run -d -p 80:80 -v ~/MyWebSite:/usr/share/nginx/html nginx
+</code></pre>
+
+<p>Bu komutla diğerlerinden farklı olarak <code>-v</code> anahtarı ile local makine üzerindeki <code>home</code> klasörümüz aldındaki <code>MyWebSite</code> klasörünü (yine iki noktanın sol tarafı) container içindeki <code>/usr/share/nginx/html</code> klasör yoluna (yine iki noktanın sağ tarafı) bağlamış olduk. Nginx&rsquo;in varsayılan web sitesini yayınladığı klasör olan bu klasör ile herhangi bir web browser ile localhost&rsquo;u açtığımızda sitemizi görebiliriz. Sadece klasör bağlamak için kullanılmayan bu anahtar ile dosya da bağlayabildiğimiz için istersek nginx&rsquo;i config&rsquo;ini değiştirerek birden fazla web sitesi için çalışmasını da sağlayabiliriz. Örneğin;</p>
+
+<pre><code class="language-sh">docker run -d \
+-p 80:80 \
+-p 443:443 \
+-v ~/MyWebSite:/usr/share/nginx/html \
+-v ~/MyConfig/nginx.conf:/etc/nginx/nginx.conf \
+nginx
+</code></pre>
+
+<p>Komutu ile de nginx&rsquo;in varsayılan config&rsquo;inin üzerine yazarak istediğimiz ayarları nginx&rsquo;e yapabiliriz. Burada önceki komutlarla karşılaştırıldığında birden fazla port ve birden fazla klasör veya dosyayı bağlayabildik.</p>
+
+<p>Bir diğer en çok kullanılan komut olan <code>logs</code> ile de bir container&rsquo;ın ekrana bastığı çıktıları takip edebiliriz. Özellikle arkaplanda çalışmasını istediğimiz bir container&rsquo;ın çalışma sırasında herhangi bir hata vermesi sonucu neden çalışmadığını görmenin en kolay yollardan birisi de bu. Mesela hata vermesi için bir container başlatalım;</p>
+
+<pre><code class="language-sh">docker run -d -p 3306:3306 --name veritabani mysql
+</code></pre>
+
+<p>Bu komuttan sonra MySQL container&rsquo;ı root kullanıcısı için ortam değişkenlerinden parolayı okumaya çalışacaktır fakat okuyamadığı için hata verip duracaktır. Container arka planda çalıştığı için de verdiği hatayı göremeyeceğimizden <code>logs</code> komutunu kullanarak durma sebebini görebiliriz;</p>
+
+<pre><code class="language-sh">docker logs veritabani
+</code></pre>
+
+<p>Eğer olur da çalışan ve devamlı olarak döngüye girmiş bir container&rsquo;da devamlı olarak nelerin loglandığını görmek istersek de logs komutuna <code>-f</code> (follow) anahtarını ekleyerek çıktıları takip etmesini ve devamlı ekrana dökmesini sağlayabiliriz.</p>
+
+<p>Sanırım şimdilik bu kadar bilgi Docker&rsquo;a bir giriş yapmak için yeterli olacaktır. Makalenin uzunluğu ya da komutların uzunluğu gözünüzü asla korkutmasın çünkü birkaç defa kullandıktan sonra ve de özellikle development sırasında kullanmaya başladıktan sonra çok hızlı bir biçimde kavrayıp sanki günlük bir yazılımı kullanıyormuşcasına seri ve verimli kullanmaya başlayacaksınız.</p>
+
+<p>Bundan sonraki bölümlerde kendi image&rsquo;lerimizi yaratıp image&rsquo;lerimizi ve container&rsquo;larımızı yönetmekle ilgili daha detaylı komutlardan, günlük development için container&rsquo;ları nasıl verimli kullanacağımızdan, çok makineli bir cluster kurup ayarlayıp yönetmekten ve de Docker için hazırlanmış üçüncü parti arayüz yazılımlarından bahsedeceğiz.</p>
+
+<p>Bir sonraki Docker makalemizde görüşmek üzere&hellip;</p>
+
+                </section>
+            </article>
+
+            
+                <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ozzyblog'; 
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+
+            
+
+            <footer id="footer">
+    
+        <div id="social">
+
+	
+	
+    <a class="symbol" href="https://www.github.com/ozguncagri" target="_blank">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        Bu blogdaki herşey MIT lisansı ile lisanslanmıştır!
+    
+    </p>
+</footer>
+
+        </section>
+
+        <script src="/js/jquery-2.2.4.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+
+    </body>
+</html>

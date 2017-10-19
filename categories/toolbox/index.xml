@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Toolbox on ozzyBlog</title>
+    <link>/categories/toolbox/</link>
+    <description>Recent content in Toolbox on ozzyBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>tr</language>
+    <copyright>Bu blogdaki herşey MIT lisansı ile lisanslanmıştır!</copyright>
+    <lastBuildDate>Wed, 23 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/toolbox/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Alet Çantam (Güncelleme)</title>
+      <link>/post/alet-cantam/</link>
+      <pubDate>Wed, 23 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/alet-cantam/</guid>
+      <description>Terminal İstemcisi ve Shell  iTerm 2 : Standart terminalden çok daha fazla ayarı ile bir terminal kullanıcısı için iTerm 2 kesinlikle olmazsa olmaz.
+ Oh-My-Zsh : ZSH için topluluk tarafından desteklenip, gelen isteklere göre geliştirilen en yaygın framework. Kurulum paketi ile beraber bir sürü eklenti ve temayı da beraberinde yükleyebilirsiniz.
+  Benim tercihim iTerm 2 için Molokai (yazım yanlışı yok monokai değil molokai) temasını, Shell için Oh-My-Zsh ile gelen Agnoster temasını, powerline uyumlu bir font (Droid Sans Mono for Powerline) ve de kendi işlerimi hızlıca çözecek fonksiyon ve aliaslar ile hazırladığım .</description>
+    </item>
+    
+  </channel>
+</rss>

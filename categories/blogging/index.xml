@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogging on ozzyBlog</title>
+    <link>/categories/blogging/</link>
+    <description>Recent content in Blogging on ozzyBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>tr</language>
+    <copyright>Bu blogdaki herşey MIT lisansı ile lisanslanmıştır!</copyright>
+    <lastBuildDate>Thu, 23 Jul 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/blogging/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>helloWorld.Reboot()</title>
+      <link>/post/hello-world-reboot/</link>
+      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
+      
+      <guid>/post/hello-world-reboot/</guid>
+      <description>Bu post&amp;rsquo;u kaç defa yazdım bilmiyorum ama bu sefer blogumu github üzerine taşıyorum ve tamamen open source olarak yayınlayıp &amp;ldquo;reboot&amp;rdquo; ediyorum. Eski blogumda çok fazla yazı olmasa da eski blogumdaki yazılardan geçerliliği olanları güncelleyerek yeni halleri ile belki yayına alabilirim. Umarım bu blog birilerine yararlı olur ve bu alanda kendini geliştirmek isteyen insanlara yönlendirici bir kaynak olarak iş görür.</description>
+    </item>
+    
+  </channel>
+</rss>

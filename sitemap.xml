@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/post/docker-ile-bir-yazilimin-yasam-sureci-bolum-1/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/alet-cantam/</loc>
+    <lastmod>2017-08-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2016-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/vagrant-ile-yazilim-gelistirmek/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/sqlmap-kullanimi/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/hello-world-reboot/</loc>
+    <lastmod>2015-07-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/about/</loc>
+    <lastmod>2016-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/about/</loc>
+    <lastmod>2016-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/apache/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/blogging/</loc>
+    <lastmod>2015-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/blogging/</loc>
+    <lastmod>2015-07-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2016-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cloud/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cluster/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/containers/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/containers/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/development/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/development/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/devenv/</loc>
+    <lastmod>2017-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/docker/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/docker/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2016-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/hack/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/images/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/injection/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/lamp/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/mamp/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/memcached/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/mongodb/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/mysql/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/nginx/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/node/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/pentest/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/pentest/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/php/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/postgresql/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/production/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/redis/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/sql/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/sql/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/sqlmap/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/toolbox/</loc>
+    <lastmod>2017-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/toolbox/</loc>
+    <lastmod>2017-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/vagrant/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/virtualbox/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/virtualization/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/virtualization/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/vulnerabilities/</loc>
+    <lastmod>2015-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/wamp/</loc>
+    <lastmod>2015-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2017-09-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
